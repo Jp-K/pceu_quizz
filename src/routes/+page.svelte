@@ -2,7 +2,7 @@
    const items = [
         //Q1
         {
-            question: "Qual é o tempo mínimo necessário para uma boa escovação",
+            question: "Qual é o tempo mínimo necessário para uma boa escovação?",
             a: "30 segundos.",
             b: "5 minutos.",
             c: "2 minutos.",//Correta
@@ -14,19 +14,19 @@
         {
             question: "Que tipo de escova de dente devo escolher?",
             a: "Com cerdas macias e arredondadas.",//Correta
-            b: "Com cerdas macias e grande.",
-            c: "Com cerdas duras e pequena.",
-            d: "Com cerdas duras e grande.",
+            b: "Com cerdas macias e grandes.",
+            c: "Com cerdas duras e pequenas.",
+            d: "Com cerdas duras e grandes.",
             correct: "a",
             isAnsweredCorrectly: false,
         },
         //Q3
         {
             question: "Qual a maneira correta de escovar os dentes?",
-            a: "Devagar e suave.",//Correta
-            b: "Forte e devagar.",
-            c: "Forte e suave.",
-            d: "Devagar e forte.",
+            a: "Suavemente e devagar.",//Correta
+            b: "Com força e devagar.",
+            c: "Suavemente e rápido.",
+            d: "Com força e rápido.",
             correct: "a",
             isAnsweredCorrectly: false,
         },
@@ -62,7 +62,7 @@
         },
         //Q7
         {
-            question: "Qual a frequência correta de passar o fio dental?",
+            question: "Qual a frequência ideal para passar o fio dental?",
             a: "Antes de dormir.",
             b: "Sempre antes de cada escovação.",//Correta
             c: "Sempre depois de escovar os dentes.",
@@ -72,7 +72,7 @@
         },
         //Q8
         {
-            question: "Qual alimento ajudar a na proteção contra a cárie?",
+            question: "Qual destes alimentos ajuda na proteção contra a cárie?",
             a: "Refrigerante.",
             b: "Bolacha.",
             c: "Pão.",
@@ -94,7 +94,7 @@
         {
             question: "A partir de que idade devemos ir ao dentista?",
             a: "Assim que nascer o primeiro dente.",
-            b: "Antes dos 2 anos.",
+            b: "Entre 8 meses e 2 anos.",
             c: "Antes dos 8 meses.",//Correta
             d: "Assim que nascer o primeiro dente permanente.",
             correct: "c",
