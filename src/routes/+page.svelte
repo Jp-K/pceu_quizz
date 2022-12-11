@@ -1,21 +1,103 @@
 <script lang="ts">
-    const items = [
+   const items = [
+        //Q1
         {
-            question: "Which language runs in a web browser?",
-            a: "Java",
-            b: "C",
-            c: "Python",
-            d: "JavaScript",
+            question: "Qual é o tempo mínimo necessário para uma boa escovação",
+            a: "30 segundos.",
+            b: "5 minutos.",
+            c: "2 minutos.",//Correta
+            d: "1 minuto.",
+            correct: "c",
+            isAnsweredCorrectly: false,
+        },
+        //Q2
+        {
+            question: "Que tipo de escova de dente devo escolher?",
+            a: "Com cerdas macias e arredondadas.",//Correta
+            b: "Com cerdas macias e grande.",
+            c: "Com cerdas duras e pequena.",
+            d: "Com cerdas duras e grande.",
+            correct: "a",
+            isAnsweredCorrectly: false,
+        },
+        //Q3
+        {
+            question: "Qual a maneira correta de escovar os dentes?",
+            a: "Devagar e suave.",//Correta
+            b: "Forte e devagar.",
+            c: "Forte e suave.",
+            d: "Devagar e forte.",
+            correct: "a",
+            isAnsweredCorrectly: false,
+        },
+        //Q4
+        {
+            question: "Qual a frequência ideal para escovar os dentes?",
+            a: "Logo após as refeições.",
+            b: "Ao acordar e antes de dormir.",
+            c: "3 Vezes ao dia.",
+            d: "30 minutos após as refeições.",//Correta
             correct: "d",
             isAnsweredCorrectly: false,
         },
+        //Q5
         {
-            question: "What does CSS stand for?",
-            a: "Central Style Sheets",
-            b: "Cascading Style Sheets",
-            c: "Cascading Simple Sheets",
-            d: "Cars SUVs Sailboats",
+            question: "Quanta pasta de dente uma criança deve colocar na escova?",
+            a: "Deve cobrir todas as cerdas.",
+            b: "Apenas um pouco, aproximadamente um grão de ervilha.",
+            c: "Bem pouco, aproximadamente um grão de arroz.",//Correta
+            d: "Não é necessário pasta de dente.",
+            correct: "c",
+            isAnsweredCorrectly: false,
+        },
+        //Q6
+        {
+            question: "Qual é a maneira correta de passar o fio dental?",
+            a: "Entrar com o fio entre os dentes e puxar.",
+            b: "Entrar para além da margem da gengiva de cada dente, passar de um lado para o outro abraçando dente.",//Correta
+            c: "Entrar com o fio entre os dentes, passar de um lado para o outro.",
+            d: "Entrar para além da margem da gengiva de cada dente e pressionar bastante, passar de um lado para o outro abraçando dente. ",
             correct: "b",
+            isAnsweredCorrectly: false,
+        },
+        //Q7
+        {
+            question: "Qual a frequência correta de passar o fio dental?",
+            a: "Antes de dormir.",
+            b: "Sempre antes de cada escovação.",//Correta
+            c: "Sempre depois de escovar os dentes.",
+            d: "Apenas quando há algo incomodando.",
+            correct: "b",
+            isAnsweredCorrectly: false,
+        },
+        //Q8
+        {
+            question: "Qual alimento ajudar a na proteção contra a cárie?",
+            a: "Refrigerante.",
+            b: "Bolacha.",
+            c: "Pão.",
+            d: "Queijo.",//Correta
+            correct: "d",
+            isAnsweredCorrectly: false,
+        },
+        //Q9
+        {
+            question: "Com qual frequência a criança deve ir ao dentista?",
+            a: "Uma vez a cada 6 meses.",//Correta
+            b: "Uma vez por ano.",
+            c: "Sempre que sentir um desconforto.",
+            d: "Uma vez a cada 3 meses.",
+            correct: "a",
+            isAnsweredCorrectly: false,
+        },
+        //Q10
+        {
+            question: "A partir de que idade devemos ir ao dentista?",
+            a: "Assim que nascer o primeiro dente.",
+            b: "Antes dos 2 anos.",
+            c: "Antes dos 8 meses.",//Correta
+            d: "Assim que nascer o primeiro dente permanente.",
+            correct: "c",
             isAnsweredCorrectly: false,
         },
     ];
