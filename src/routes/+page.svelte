@@ -102,12 +102,13 @@
         },
     ];
 
-    let questionA:any = null;
-    let questionB:any = null;
-    let questionC:any = null;
-    let questionD:any = null;
+    let questionA:HTMLInputElement;
+    let questionB:HTMLInputElement;
+    let questionC:HTMLInputElement;
+    let questionD:HTMLInputElement;
 
     function deselectAnswers() {
+        
         questionA.checked = false;
         questionB.checked = false;
         questionC.checked = false;
