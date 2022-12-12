@@ -1,4 +1,6 @@
 <script lang="ts">
+   import {afterUpdate} from "svelte";
+
    const items = [
         //Q1
         {
@@ -8,7 +10,7 @@
             c: "2 minutos.",//Correta
             d: "1 minuto.",
             correct: "c",
-            isAnsweredCorrectly: false,
+            answer: "",
         },
         //Q2
         {
@@ -18,7 +20,7 @@
             c: "Com cerdas duras e pequenas.",
             d: "Com cerdas duras e grandes.",
             correct: "a",
-            isAnsweredCorrectly: false,
+            answer: "",
         },
         //Q3
         {
@@ -28,7 +30,7 @@
             c: "Suavemente e rápido.",
             d: "Com força e rápido.",
             correct: "a",
-            isAnsweredCorrectly: false,
+            answer: "",
         },
         //Q4
         {
@@ -38,7 +40,7 @@
             c: "3 Vezes ao dia.",
             d: "30 minutos após as refeições.",//Correta
             correct: "d",
-            isAnsweredCorrectly: false,
+            answer: "",
         },
         //Q5
         {
@@ -48,7 +50,7 @@
             c: "Bem pouco, aproximadamente um grão de arroz.",//Correta
             d: "Não é necessário pasta de dente.",
             correct: "c",
-            isAnsweredCorrectly: false,
+            answer: "",
         },
         //Q6
         {
@@ -58,7 +60,7 @@
             c: "Entrar com o fio entre os dentes, passar de um lado para o outro.",
             d: "Entrar para além da margem da gengiva de cada dente e pressionar bastante, passar de um lado para o outro abraçando dente. ",
             correct: "b",
-            isAnsweredCorrectly: false,
+            answer: "",
         },
         //Q7
         {
@@ -68,7 +70,7 @@
             c: "Sempre depois de escovar os dentes.",
             d: "Apenas quando há algo incomodando.",
             correct: "b",
-            isAnsweredCorrectly: false,
+            answer: "",
         },
         //Q8
         {
@@ -78,7 +80,7 @@
             c: "Pão.",
             d: "Queijo.",//Correta
             correct: "d",
-            isAnsweredCorrectly: false,
+            answer: "",
         },
         //Q9
         {
@@ -88,7 +90,7 @@
             c: "Sempre que sentir um desconforto.",
             d: "Uma vez a cada 3 meses.",
             correct: "a",
-            isAnsweredCorrectly: false,
+            answer: "",
         },
         //Q10
         {
@@ -98,7 +100,7 @@
             c: "Antes dos 8 meses.",//Correta
             d: "Assim que nascer o primeiro dente permanente.",
             correct: "c",
-            isAnsweredCorrectly: false,
+            answer: "",
         },
     ];
 
@@ -113,6 +115,7 @@
         questionB.checked = false;
         questionC.checked = false;
         questionD.checked = false;
+        selectedAnswer = "";
     }
 
     let currentQuestionItem = items[0];
@@ -125,22 +128,80 @@
 
     let isFinished = false;
 
+    let currentResultItem = 0;
+
+    let resultElements: HTMLElement[] = [];
+
     function submitAnswer() {
         if (!selectedAnswer) {
             return;
         }
-        deselectAnswers();
-        if (selectedAnswer === currentQuestionItem.correct) {
-            correctAnswers++;
-            items[questionNumber].isAnsweredCorrectly = true;
-        }
+
+        correctAnswers = selectedAnswer === currentQuestionItem.correct ? correctAnswers+1 : correctAnswers;
+        items[questionNumber].answer = selectedAnswer;
+
         questionNumber++;
         if (items.length > questionNumber) {
             currentQuestionItem = items[questionNumber];
         } else {
             isFinished = true
         }
+
+        deselectAnswers();
     }
+
+    function verifyResultIndex(index): string {
+        if (index === currentResultItem) {
+            return 'left: 0';
+        }
+
+        if (index < currentResultItem) {
+            return 'left: -800px'
+        }
+
+        return '';
+    }
+
+    function swipeResult(modifier) {
+        currentResultItem = currentResultItem+modifier;
+
+        for (let i = 0; i < resultElements.length; i++) {
+            const eleStyle = resultElements[i].style;
+
+            if (i === currentResultItem) {
+                eleStyle.left = "0px";
+            } else if (i < currentResultItem) {
+                eleStyle.left = "-800px";
+            } else {
+                eleStyle.left = "800px";
+            }
+        }
+    }
+
+    afterUpdate(() => {
+        const currentElement = resultElements[currentResultItem];
+        const currentAnswer = items[currentResultItem];
+
+        if (!currentElement) {
+            return;
+        }
+
+        const responses = currentElement.querySelectorAll('li');
+
+
+        for (let liElement of responses) {
+            const letter = liElement.innerText.split(")")[0].toLowerCase();
+            console.log(letter, currentAnswer.correct, currentAnswer.answer)
+
+            if (letter === currentAnswer.correct) {
+                liElement.style.backgroundColor = "rgba(0,255,43,0.7)";
+            }
+
+            if (letter === currentAnswer.answer && letter !== currentAnswer.correct) {
+                liElement.style.backgroundColor = "rgba(255,0,0,0.7)";
+            }
+        }
+    })
 
 </script>
 
@@ -148,7 +209,7 @@
     <div class="quiz-container" >
         <div class="quiz-header">
             {#if !isFinished}
-          <h2 id="question">{currentQuestionItem.question}</h2>
+          <h2>{currentQuestionItem.question}</h2>
           <ul>
             <li>
               <input type="radio" name="answer" id="a" class="answer" on:click={() => selectedAnswer = "a"} bind:this={questionA}>
@@ -171,7 +232,42 @@
             </li>
           </ul>
           {:else}
-          <h2 id="question">Você acertou {correctAnswers} questões!</h2>
+                <h2>Você acertou {correctAnswers} questões!</h2>
+                <div class="results-container">
+                    {#each items as question, index}
+                        <div class="result-item" bind:this={resultElements[index]} style={verifyResultIndex(index)}>
+                            <h2>{question.question}</h2>
+                            <ul>
+                                <li>
+                                    <strong>A) </strong> <span>{question.a}</span>
+                                </li>
+
+                                <li>
+                                    <strong>B) </strong><span>{question.b}</span>
+                                </li>
+
+                                <li>
+                                    <strong>C) </strong><span>{question.c}</span>
+                                </li>
+
+                                <li>
+                                    <strong>D) </strong><span>{question.d}</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                    {/each}
+                    <div style="gap: 15px; display: flex; max-width: 700px; position: relative; top: 400px">
+                        {#if currentResultItem !== 0}
+                        <button on:click={() => swipeResult(-1)}>voltar</button>
+                            {/if}
+                        {#if currentResultItem !== items.length-1}
+                        <button on:click={() => swipeResult(1)}>próximo</button>
+                            {/if}
+                    </div>
+
+                </div>
+
           {/if}
         </div>
         {#if !isFinished}
@@ -255,4 +351,31 @@
     outline: none;
     background-color: #5e3370;
  }
+
+ .results-container {
+     position: relative;
+     width: 800px;
+     height: 500px;
+ }
+
+ .result-item {
+     position: absolute;
+    width: 800px;
+     height: 500px;
+     left: 800px;
+     top:0;
+     transition: ease;
+     transition-duration: 1s;
+     max-width: 700px;
+ }
+
+ .result-item > h2 {
+     max-width: 700px;
+ }
+
+ .result-item li {
+     padding: 5px;
+     border-radius: 25px;
+ }
+
 </style>
