@@ -1,5 +1,6 @@
 <script>
-    import {afterUpdate} from "svelte";
+    export let VideoLink = "";
+    export let question = "";
     let popup;
 
     export function openPopup() {
@@ -13,7 +14,17 @@
 
 
 <div class="popup" bind:this={popup}>
-    <h2>Este é o conteúdo do meu popup.</h2>
+    <h2>Oops..</h2>
+    <p> Vimos que errou a questão "<i>{question}</i>", da uma olhada nesse vídeo que pode te ajudar :) !</p>
+    <br/>
+    <iframe
+            width="560"
+            height="315"
+            src={VideoLink}
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
     <button type="button" on:click={closePopup}>Ok</button>
 </div>
 
@@ -24,7 +35,7 @@
     }
     :global(.popup){
         z-index: 10;
-        width: 400px;
+        width: 800px;
         background-color: #fff;
         border-radius: 6px;
         position: absolute;
@@ -36,6 +47,7 @@
         color: #333;
         visibility: hidden;
         transition: transform 0.4s, top 0.4s;
+        box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
     }
 
     :global(.open-popup){
@@ -45,7 +57,7 @@
     }
 
     :global(.popup) h2{
-        font-size: 38px;
+        font-size: 24px;
         font-weight: 500;
         margin: 30px 0 10px;
     }

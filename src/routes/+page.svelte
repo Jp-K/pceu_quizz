@@ -13,6 +13,7 @@
             d: "1 minuto.",
             correct: "c",
             answer: "",
+            link: "https://www.youtube.com/embed/qHI-CybmJOM",
         },
         //Q2
         {
@@ -23,6 +24,7 @@
             d: "Com cerdas duras e grandes.",
             correct: "a",
             answer: "",
+            link: "https://www.youtube.com/embed/qHI-CybmJOM",
         },
         //Q3
         {
@@ -33,6 +35,7 @@
             d: "Com força e rápido.",
             correct: "a",
             answer: "",
+            link: "https://www.youtube.com/embed/qHI-CybmJOM",
         },
         //Q4
         {
@@ -43,6 +46,7 @@
             d: "30 minutos após as refeições.",//Correta
             correct: "d",
             answer: "",
+            link: "https://www.youtube.com/embed/qHI-CybmJOM",
         },
         //Q5
         {
@@ -53,6 +57,7 @@
             d: "Não é necessário pasta de dente.",
             correct: "c",
             answer: "",
+            link: "https://www.youtube.com/embed/qHI-CybmJOM",
         },
         //Q6
         {
@@ -63,6 +68,7 @@
             d: "Entrar para além da margem da gengiva de cada dente e pressionar bastante, passar de um lado para o outro abraçando dente. ",
             correct: "b",
             answer: "",
+            link: "https://www.youtube.com/embed/KRnoAF7Y0nk",
         },
         //Q7
         {
@@ -73,6 +79,7 @@
             d: "Apenas quando há algo incomodando.",
             correct: "b",
             answer: "",
+            link: "https://www.youtube.com/embed/KRnoAF7Y0nk",
         },
         //Q8
         {
@@ -83,6 +90,7 @@
             d: "Queijo.",//Correta
             correct: "d",
             answer: "",
+            link: "https://www.youtube.com/embed/2KhX5JkHglY"
         },
         //Q9
         {
@@ -93,6 +101,7 @@
             d: "Uma vez a cada 3 meses.",
             correct: "a",
             answer: "",
+            link: "https://www.youtube.com/embed/poskbiF78BA",
         },
         //Q10
         {
@@ -103,6 +112,7 @@
             d: "Assim que nascer o primeiro dente permanente.",
             correct: "c",
             answer: "",
+            link: "https://www.youtube.com/embed/Cdo__xPd5-s"
         },
     ];
 
@@ -136,6 +146,18 @@
 
     let resultElements: HTMLElement[] = [];
 
+    let randomItem:any = items[0];
+
+   function retornarValorAleatorio(lista) {
+       if (Array.isArray(lista) && lista.length > 0) {
+           const indiceAleatorio = Math.floor(Math.random() * lista.length);
+
+           return lista[indiceAleatorio];
+       } else {
+           return undefined;
+       }
+   }
+
     function submitAnswer() {
         if (!selectedAnswer) {
             return;
@@ -148,7 +170,15 @@
         if (items.length > questionNumber) {
             currentQuestionItem = items[questionNumber];
         } else {
-            popupElement.openPopup()
+            const lista = [];
+            items.forEach((item) => {
+                if(item.correct !== item.answer) {
+                    lista.push(item)
+                }
+            });
+            randomItem = retornarValorAleatorio(lista);
+            popupElement.openPopup();
+
             isFinished = true
         }
 
@@ -211,7 +241,7 @@
 </script>
 
 <div class="body">
-    <svelte:component this={popup} bind:this={popupElement}/>
+    <svelte:component this={popup} bind:this={popupElement} question={randomItem.question} VideoLink={randomItem.link}/>
     <div class="quiz-container" >
         <div class="quiz-header">
             {#if !isFinished}
