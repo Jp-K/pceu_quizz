@@ -1,6 +1,8 @@
 <script lang="ts">
    import {afterUpdate} from "svelte";
 
+   import popup from "../components/popup.svelte";
+
    const items = [
         //Q1
         {
@@ -130,6 +132,8 @@
 
     let currentResultItem = 0;
 
+    let popupElement:any;
+
     let resultElements: HTMLElement[] = [];
 
     function submitAnswer() {
@@ -144,13 +148,14 @@
         if (items.length > questionNumber) {
             currentQuestionItem = items[questionNumber];
         } else {
+            popupElement.openPopup()
             isFinished = true
         }
 
         deselectAnswers();
     }
 
-    function verifyResultIndex(index): string {
+    function verifyResultIndex(index: number): string {
         if (index === currentResultItem) {
             return 'left: 0';
         }
@@ -162,7 +167,7 @@
         return '';
     }
 
-    function swipeResult(modifier) {
+    function swipeResult(modifier: number) {
         currentResultItem = currentResultItem+modifier;
 
         for (let i = 0; i < resultElements.length; i++) {
@@ -206,6 +211,7 @@
 </script>
 
 <div class="body">
+    <svelte:component this={popup} bind:this={popupElement}/>
     <div class="quiz-container" >
         <div class="quiz-header">
             {#if !isFinished}
